@@ -5,13 +5,13 @@
 This project is an e-commerce web application developed as part of my learning journey with Next.js. It showcases the implementation of real-world features such as dynamic product pages, a shopping cart, responsive UI, and smooth user navigation.
 
 🚀 Tech Stack:
-Next.js – App Router, SSR, SEO-ready pages
-React – Core frontend framework
-Tailwind CSS – Utility-first styling for fast, responsive design
-ShadCN UI – Pre-built, accessible UI components
-React Query – Data fetching and caching
-Context API – For state management (if applicable)
-TypeScript – Type safety
+- Next.js – App Router, SSR, SEO-ready pages
+- React – Core frontend framework
+- Tailwind CSS – Utility-first styling for fast, responsive design
+- ShadCN UI – Pre-built, accessible UI components
+- React Query – Data fetching and caching
+- Context API – For state management (if applicable)
+- TypeScript – Type safety
 
 ----------------------------------------------------------------------
 
