@@ -1,6 +1,17 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/* 2. Set up box-sizing for consistency */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
