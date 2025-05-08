@@ -1,41 +1,49 @@
+"use client"
+
+import { MENU_TITLE, TAGLINE } from "@/lib/constants";
+import { SAMIRA_LOGO_IMAGE } from "@/lib/images/home";
+import { fetchCategories } from "@/services/services-categroies";
+import { Category } from "@/types/category";
+import { useQuery } from "@tanstack/react-query";
+import Image from "next/image";
 import Link from "next/link";
 
 export default function Footer() {
+  const { data: categories } = useQuery<Category[]>({
+    queryKey: ['categories'],
+    queryFn: fetchCategories
+  })
+
   return (
     <footer className="bg-gray-100 text-gray-700 mt-12">
     <div className="max-w-6xl mx-auto px-6 py-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
         <div>
-        <h4 className="text-xl font-bold text-purple-700 mb-2">Samirah</h4>
-        <p className="text-sm">
-            Discover elegant, curated products crafted for modern lifestyles.
-        </p>
+          <Image src={SAMIRA_LOGO_IMAGE} alt="Samira Logo" width={100} height={30} className="mb-2"/>
+          <p className="text-sm">{TAGLINE}</p>
         </div>
 
         <div>
-        <h5 className="font-semibold mb-2">Shop</h5>
-        <ul className="space-y-1 text-sm">
+          <h5 className="font-semibold mb-2">{MENU_TITLE.SHOP}</h5>
+          <ul className="space-y-1 text-sm">
             <li><Link href="#" className="hover:text-purple-600">All Products</Link></li>
-            <li><Link href="#" className="hover:text-purple-600">Category 1</Link></li>
-            <li><Link href="#" className="hover:text-purple-600">Category 2</Link></li>
-        </ul>
+            {categories && categories.map((category, index) => (
+              <li key={`${category.name}-${index}`}><Link href="#" className="hover:text-purple-600">{category.name}</Link></li>
+            ))}
+          </ul>
         </div>
 
         <div>
-        <h5 className="font-semibold mb-2">About</h5>
-        <ul className="space-y-1 text-sm">
-            <li><Link href="#" className="hover:text-purple-600">Our Story</Link></li>
-            <li><Link href="#" className="hover:text-purple-600">Careers</Link></li>
-            <li><Link href="#" className="hover:text-purple-600">Blog</Link></li>
-        </ul>
+          <h5 className="font-semibold mb-2">{MENU_TITLE.ABOUT_US}</h5>
+          <ul className="space-y-1 text-sm">
+            <li><Link href="#" className="hover:text-purple-600">{MENU_TITLE.ABOUT_US_CHILD.OUR_STORY}</Link></li>
+          </ul>
         </div>
 
         <div>
-        <h5 className="font-semibold mb-2">Support</h5>
-        <ul className="space-y-1 text-sm">
-            <li><Link href="#" className="hover:text-purple-600">Contact</Link></li>
-            <li><Link href="#" className="hover:text-purple-600">FAQs</Link></li>
-            <li><Link href="#" className="hover:text-purple-600">Shipping & Returns</Link></li>
-        </ul>
+          <h5 className="font-semibold mb-2">{MENU_TITLE.SUPPORT}</h5>
+          <ul className="space-y-1 text-sm">
+            <li><Link href="#" className="hover:text-purple-600">{MENU_TITLE.SUPPORT_CHILD.CONTACT}</Link></li>
+          </ul>
         </div>
     </div>
 

@@ -3,9 +3,12 @@
 import { useState } from "react"
 import { Menu, X, ShoppingBag } from "lucide-react";
 import Link from "next/link";
-import NavigationMenuShop from "./navigation-menu-shop";
+import NavigationMenuDesktop from "./navigation-menu-desktop";
+import Image from "next/image";
+import { SAMIRA_LOGO_IMAGE } from "@/lib/images/home";
 
 export default function Navbar() {
+
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleMenu = () => setIsOpen(!isOpen);
@@ -13,13 +16,11 @@ export default function Navbar() {
   return (
     <nav className="bg-white shadow-md px-6 py-4">
       <div className="flex justify-between items-center">
-        <div className="text-2xl font-bold text-purple-600">Samirah</div>
+        <Image src={SAMIRA_LOGO_IMAGE} alt="Samira Logo" width={100} height={30}/>
 
         {/* Desktop Menu */}
         <ul className="hidden md:flex space-x-6 text-gray-700 font-medium">
-          {/* <li className="hover:text-purple-600 cursor-pointer"><Link href="/shop">Shop</Link></li>
-          <li className="hover:text-purple-600 cursor-pointer"><Link href="/about-us">About Us</Link></li> */}
-          <NavigationMenuShop/>
+          <NavigationMenuDesktop/>
         </ul>
 
         <ul className="hidden md:flex space-x-6 text-gray-700 font-medium">
