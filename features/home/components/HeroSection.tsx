@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { SECTION_TITLE, SHOP_NOW, TAGLINE } from "@/lib/constants";
+import { SECTION_TITLE, SHOP_NOW, TAGLINE } from "@/lib/types/constants";
 import { HERO_BANNER_IMAGE } from "@/lib/images/home";
 import Image from "next/image";
 

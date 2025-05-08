@@ -12,8 +12,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel"
-import { Card, CardContent } from "@/components/ui/card";
-import { SECTION_TITLE } from "@/lib/constants";
+import { SECTION_TITLE } from "@/lib/types/constants";
 
 export default function ProductSection() {
   const { data: products } = useQuery<Product[]>({
