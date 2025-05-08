@@ -16,7 +16,7 @@ import { fetchCategories } from "@/services/services-categroies";
 import { Category } from "@/types/category";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { Url } from "next/dist/shared/lib/router/router";
-import { MENU_TITLE } from "@/lib/constants";
+import { MENU_TITLE } from "@/lib/types/constants";
  
 const components: { title: string; href: string; description: string }[] = [
   {
@@ -82,10 +82,34 @@ const ListItem = forwardRef<
 ListItem.displayName = "ListItem"
 
 export default function NavigationMenuShop() {
-  const { data: categories } = useQuery<Category[]>({
+  const { data: categories, isLoading , isError, error } = useQuery<Category[]>({
     queryKey: ['categories'],
     queryFn: fetchCategories
   })
+
+  let content
+  if (isLoading) {
+    content = <div>Loading...</div>
+  }
+  if (isError) {
+    content = <div>Error: {error.message}</div>
+  }
+  if (categories) {
+    content = categories.map((category) => (
+      <ListItem
+        key={category.slug}
+        href={`/shop/${category.name}`}
+      >
+        <div className="flex gap-2 items-center">
+          <Avatar>
+            <AvatarImage src={category.image} alt="Avatar Image Feedback" />
+            <AvatarFallback>Image Category</AvatarFallback>
+          </Avatar>
+          <span>{category.name}</span>
+        </div>
+      </ListItem>
+    ))
+  }
 
   return (
     <NavigationMenu>
@@ -95,20 +119,7 @@ export default function NavigationMenuShop() {
           <NavigationMenuContent className="p-4">
             <div className="gap-2">Category</div>
             <ul className="grid w-[400px] gap-y-1 gap-x-2 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
-              {categories && categories.map((category) => (
-                <ListItem
-                  key={category.slug}
-                  href={`/shop/${category.name}`}
-                >
-                  <div className="flex gap-2 items-center">
-                    <Avatar>
-                      <AvatarImage src={category.image} alt="Avatar Image Feedback" />
-                      <AvatarFallback>Image Category</AvatarFallback>
-                    </Avatar>
-                    <span>{category.name}</span>
-                  </div>
-                </ListItem>
-              ))}
+              {content}
             </ul>
           </NavigationMenuContent>
         </NavigationMenuItem>

@@ -1,6 +1,6 @@
 "use client"
 
-import { MENU_TITLE, TAGLINE } from "@/lib/constants";
+import { MENU_TITLE, TAGLINE } from "@/lib/types/constants";
 import { SAMIRA_LOGO_IMAGE } from "@/lib/images/home";
 import { fetchCategories } from "@/services/services-categroies";
 import { Category } from "@/types/category";
@@ -9,10 +9,24 @@ import Image from "next/image";
 import Link from "next/link";
 
 export default function Footer() {
-  const { data: categories } = useQuery<Category[]>({
+  const { data: categories, isLoading, isError, error } = useQuery<Category[]>({
     queryKey: ['categories'],
     queryFn: fetchCategories
   })
+
+  let content
+
+  if (isLoading) {
+    content = <div>Loading...</div>
+  }
+  if (isError) {
+    content = <div>Error: {error.message}</div>
+  }
+  if (categories) {
+    content = categories.map((category, index) => (
+      <li key={`${category.name}-${index}`}><Link href="#" className="hover:text-purple-600">{category.name}</Link></li>
+    ))
+  }
 
   return (
     <footer className="bg-gray-100 text-gray-700 mt-12">
@@ -26,9 +40,7 @@ export default function Footer() {
           <h5 className="font-semibold mb-2">{MENU_TITLE.SHOP}</h5>
           <ul className="space-y-1 text-sm">
             <li><Link href="#" className="hover:text-purple-600">All Products</Link></li>
-            {categories && categories.map((category, index) => (
-              <li key={`${category.name}-${index}`}><Link href="#" className="hover:text-purple-600">{category.name}</Link></li>
-            ))}
+            {content}
           </ul>
         </div>
 
